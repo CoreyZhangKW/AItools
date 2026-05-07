@@ -42,7 +42,7 @@ Before reviewing, read the full document to understand its scope:
 
 ## Step 2: Systematic Review
 
-Apply all six criteria below to every section, paragraph by paragraph. For each issue found, record one entry in `issues.json`:
+Apply the criteria below to every section, paragraph by paragraph. For each issue found, record one entry in `issues.json`:
 
 ```json
 [
@@ -57,6 +57,15 @@ Apply all six criteria below to every section, paragraph by paragraph. For each 
 ```
 
 `issue_type` must be one of: `Language` | `Grammar` | `Data` | `Logic` | `Style` | `Strength` | `Format`
+
+Quick mapping (use whichever best matches the issue):
+- `Language`: wording/clarity/voice/terminology consistency
+- `Grammar`: spelling/punctuation/grammar errors
+- `Data`: numbers/dates/percentages/totals/cross-section consistency
+- `Logic`: internal inconsistency, unsupported claims, missing steps/assumptions
+- `Style`: tone, excessive marketing language, readability, structure within a paragraph
+- `Strength`: under-stated investment thesis / competitive strengths presentation
+- `Format`: numbering, units, defined terms formatting, table/figure consistency
 
 ### Review Criteria
 
@@ -104,22 +113,22 @@ Apply all six criteria below to every section, paragraph by paragraph. For each 
 ### For Word (.docx) files
 
 ```bash
-pip install python-docx lxml --break-system-packages -q
-python /home/ubuntu/skills/drafting-review/scripts/annotate_docx.py \
-    <input.docx> issues.json <output_reviewed.docx>
+python -m pip install -q python-docx lxml
+python skills/drafting-review/scripts/annotate_docx.py <input.docx> issues.json <output_reviewed.docx>
 ```
 
 ### For PDF (.pdf) files
 
 ```bash
-pip install pymupdf --break-system-packages -q
-python /home/ubuntu/skills/drafting-review/scripts/annotate_pdf.py \
-    <input.pdf> issues.json <output_reviewed.pdf>
+python -m pip install -q pymupdf
+python skills/drafting-review/scripts/annotate_pdf.py <input.pdf> issues.json <output_reviewed.pdf>
 ```
 
 Output filename convention: `[original_name]_reviewed.[ext]`
 
 > **Note on PDF CJK text search**: PyMuPDF's `search_for` may not locate Chinese text in all PDFs depending on font embedding. If a Chinese-text issue cannot be located, the script places a grey fallback note on page 1 and reports the count. This is expected behaviour.
+
+> **If the scripts are not available**: still complete Step 2 by producing `issues.json`, and deliver an `issues.md` issue log (grouped by section and severity) instead of an annotated binary file. Do not claim the file was “annotated” unless the script actually ran and produced an output file.
 
 ### Annotation format (applied by the scripts)
 
